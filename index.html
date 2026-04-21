@@ -39,34 +39,70 @@
     .chart-wrap canvas { max-height: 200px; }
     .breakdown { display: flex; flex-direction: column; gap: 10px; }
     .breakdown-header { display: flex; justify-content: space-between; margin-bottom: 5px; }
-    .breakdown-bar-bg { height: 5px; background: #1e2d45; border-radius: 3px; overflow: hidden; }
+    .breakdown-bar-bg { height: 5px; background: #1e2d45; border-radius: 3px; overflow: hidden; cursor: pointer; }
     .breakdown-bar-fill { height: 100%; border-radius: 3px; transition: width 0.5s ease; }
+    .breakdown-row-wrap { cursor: pointer; border-radius: 5px; padding: 4px 6px; transition: background 0.12s; }
+    .breakdown-row-wrap:hover { background: rgba(255,255,255,0.03); }
+    .breakdown-chevron { font-size: 9px; color: #4a5568; transition: transform 0.2s; margin-right: 4px; display: inline-block; }
+    .breakdown-chevron.open { transform: rotate(90deg); }
+    .cat-drill { display: none; background: #0e1420; border-radius: 6px; margin: 6px 0 4px 10px; padding: 10px 14px; }
+    .cat-drill.open { display: block; animation: fadeIn 0.2s ease; }
+    .cat-drill-entry { padding: 8px 0; border-bottom: 1px solid #1a2538; }
+    .cat-drill-entry:last-child { border-bottom: none; }
+    .cat-drill-meta { display: flex; align-items: center; justify-content: space-between; gap: 8px; flex-wrap: wrap; margin-bottom: 3px; }
+    .cat-drill-job { font-size: 12px; color: #f8fafc; font-weight: 500; }
+    .cat-drill-date { font-size: 11px; color: #4a5568; white-space: nowrap; }
+    .cat-drill-snippet { font-size: 11px; color: #64748b; line-height: 1.4; }
 
-    .week-row { display: flex; align-items: center; gap: 12px; padding: 8px 0; border-bottom: 1px solid #1a2538; }
-    .week-row:last-child { border-bottom: none; }
+    /* Week drill-down */
+    .week-row { display: flex; align-items: center; gap: 12px; padding: 9px 8px; border-radius: 5px; cursor: pointer; transition: background 0.12s; border-bottom: 1px solid #1a2538; }
+    .week-row:last-of-type { border-bottom: none; }
+    .week-row:hover { background: rgba(255,255,255,0.03); }
+    .week-chevron { font-size: 10px; color: #4a5568; transition: transform 0.2s; min-width: 12px; }
+    .week-chevron.open { transform: rotate(90deg); }
     .week-label { font-size: 12px; color: #94a3b8; min-width: 110px; }
     .week-bar-wrap { flex: 1; height: 8px; background: #1e2d45; border-radius: 4px; overflow: hidden; }
     .week-bar { height: 100%; background: #f97316; border-radius: 4px; transition: width 0.5s ease; }
     .week-count { font-size: 12px; color: #64748b; min-width: 24px; text-align: right; }
+    .day-breakdown { display: none; background: #0e1420; border-radius: 6px; margin: 4px 0 8px 24px; padding: 10px 14px; }
+    .day-breakdown.open { display: block; animation: fadeIn 0.2s ease; }
+    .day-row { display: flex; align-items: center; gap: 10px; padding: 4px 0; }
+    .day-label { font-size: 11px; color: #64748b; min-width: 90px; }
+    .day-bar-wrap { flex: 1; height: 5px; background: #1e2d45; border-radius: 3px; overflow: hidden; }
+    .day-bar { height: 100%; background: #f97316; opacity: 0.6; border-radius: 3px; }
+    .day-count { font-size: 11px; color: #4a5568; min-width: 20px; text-align: right; }
+
+    .top-error-item { padding: 12px 0; border-bottom: 1px solid #1a2538; }
+    .top-error-item:last-child { border-bottom: none; }
+    .top-error-header { display: flex; align-items: center; justify-content: space-between; margin-bottom: 5px; gap: 10px; flex-wrap: wrap; }
+    .top-error-msg { font-size: 12px; color: #94a3b8; line-height: 1.5; font-style: italic; }
+    .error-count-badge { background: #f9731620; color: #f97316; border-radius: 3px; font-size: 11px; padding: 3px 8px; font-weight: 500; white-space: nowrap; }
 
     .repeat-item { display: flex; align-items: center; justify-content: space-between; padding: 10px 0; border-bottom: 1px solid #1a2538; flex-wrap: wrap; gap: 8px; }
     .repeat-item:last-child { border-bottom: none; }
     .repeat-badge { background: #ef444420; color: #ef4444; border-radius: 3px; font-size: 11px; padding: 3px 8px; font-weight: 500; white-space: nowrap; }
 
-    .row-entry { border-bottom: 1px solid #1a2538; padding: 14px 0; animation: fadeIn 0.3s ease; }
+    /* History entries */
+    .row-entry { border-bottom: 1px solid #1a2538; padding: 14px 0; animation: fadeIn 0.25s ease; }
     .row-entry:last-child { border-bottom: none; }
     .entry-top { display: flex; justify-content: space-between; align-items: flex-start; gap: 12px; }
     .entry-main { flex: 1; min-width: 0; }
     .entry-meta { display: flex; align-items: center; gap: 8px; margin-bottom: 5px; flex-wrap: wrap; }
     .entry-job { font-size: 13px; color: #f8fafc; font-weight: 500; }
-    .entry-snippet { font-size: 12px; color: #64748b; margin-bottom: 4px; line-height: 1.5; word-break: break-word; }
-    .entry-notes { font-size: 12px; color: #94a3b8; margin-bottom: 4px; font-style: italic; }
+    .entry-snippet { font-size: 12px; color: #64748b; margin-bottom: 5px; line-height: 1.5; word-break: break-word; }
+    .entry-notes-display { font-size: 12px; color: #94a3b8; margin-bottom: 4px; font-style: italic; cursor: pointer; padding: 3px 6px; border-radius: 4px; transition: background 0.12s; display: inline-block; }
+    .entry-notes-display:hover { background: rgba(255,255,255,0.05); }
+    .entry-notes-display.empty { color: #374151; }
+    .entry-notes-input { background: #0e1420; border: 1px solid #f97316; border-radius: 4px; color: #e2e8f0; font-family: 'DM Mono', monospace; font-size: 12px; padding: 5px 8px; width: 100%; margin-bottom: 4px; outline: none; }
     .entry-link { font-size: 11px; color: #3b82f6; text-decoration: none; }
     .entry-link:hover { text-decoration: underline; }
     .entry-right { display: flex; flex-direction: column; align-items: flex-end; gap: 6px; flex-shrink: 0; }
     .entry-time { font-size: 11px; color: #4a5568; white-space: nowrap; }
-    .del-btn { background: none; border: none; cursor: pointer; color: #4a5568; font-size: 16px; padding: 4px 8px; border-radius: 4px; transition: color 0.12s; }
-    .del-btn:hover { color: #ef4444; }
+    .icon-btn { background: none; border: none; cursor: pointer; color: #4a5568; font-size: 13px; padding: 4px 6px; border-radius: 4px; transition: color 0.12s; }
+    .icon-btn:hover.del { color: #ef4444; }
+    .icon-btn:hover.edit { color: #f97316; }
+    .icon-btn:hover.copy { color: #14b8a6; }
+    .btn-row { display: flex; gap: 2px; }
 
     .status-badge { display: inline-block; padding: 2px 8px; border-radius: 3px; font-size: 10px; font-weight: 500; letter-spacing: 0.04em; }
     .status-open     { background: #ef444420; color: #ef4444; }
@@ -74,7 +110,11 @@
     .status-resolved { background: #22c55e20; color: #22c55e; }
 
     .tag { display: inline-block; padding: 3px 10px; border-radius: 3px; font-size: 11px; font-weight: 500; letter-spacing: 0.04em; }
+    .tag-clickable { cursor: pointer; transition: opacity 0.12s; }
+    .tag-clickable:hover { opacity: 0.75; }
+    .inline-cat-select { background: #0e1420; border: 1px solid #f97316; border-radius: 4px; color: #e2e8f0; font-family: 'DM Mono', monospace; font-size: 11px; padding: 3px 6px; cursor: pointer; outline: none; }
 
+    /* Form */
     .form-wrap { max-width: 640px; }
     .form-title { font-family: 'Syne', sans-serif; font-size: 22px; font-weight: 800; margin-bottom: 6px; }
     .form-desc { font-size: 12px; color: #4a5568; margin-bottom: 24px; }
@@ -91,20 +131,33 @@
     .preview-box.visible { display: block; }
     .recurring-warning { background: rgba(239,68,68,0.08); border: 1px solid rgba(239,68,68,0.25); border-radius: 6px; padding: 10px 14px; font-size: 12px; color: #ef4444; display: none; }
     .recurring-warning.visible { display: block; }
+    .edit-banner { background: rgba(249,115,22,0.08); border: 1px solid rgba(249,115,22,0.3); border-radius: 6px; color: #f97316; font-size: 12px; padding: 10px 14px; margin-bottom: 16px; display: none; }
+    .edit-banner.visible { display: block; }
 
     .submit-btn { background: #f97316; border: none; border-radius: 6px; color: #fff; cursor: pointer; font-family: 'DM Mono', monospace; font-size: 13px; font-weight: 500; padding: 12px 28px; letter-spacing: 0.05em; transition: all 0.15s; }
     .submit-btn:hover { background: #ea6c0a; transform: translateY(-1px); }
+    .cancel-edit-btn { background: none; border: 1px solid #1e2d45; border-radius: 6px; color: #94a3b8; cursor: pointer; font-family: 'DM Mono', monospace; font-size: 13px; padding: 12px 20px; transition: all 0.15s; }
+    .cancel-edit-btn:hover { border-color: #4a5568; }
     .success-banner { background: rgba(20,184,166,0.12); border: 1px solid rgba(20,184,166,0.3); border-radius: 6px; color: #14b8a6; font-size: 13px; padding: 12px 16px; text-align: center; margin-bottom: 16px; display: none; }
     .success-banner.visible { display: block; animation: fadeIn 0.3s ease; }
 
+    /* History controls */
     .history-header { display: flex; align-items: center; justify-content: space-between; margin-bottom: 14px; flex-wrap: wrap; gap: 12px; }
     .history-title { font-family: 'Syne', sans-serif; font-size: 22px; font-weight: 800; }
+    .history-controls { display: flex; gap: 8px; align-items: center; flex-wrap: wrap; }
+    .search-input { background: #0e1420; border: 1px solid #1e2d45; border-radius: 6px; color: #e2e8f0; font-family: 'DM Mono', monospace; font-size: 12px; padding: 7px 12px; outline: none; width: 200px; transition: border-color 0.15s; }
+    .search-input:focus { border-color: #f97316; }
+    .search-input::placeholder { color: #4a5568; }
+    .sort-select { background: #0e1420; border: 1px solid #1e2d45; border-radius: 6px; color: #94a3b8; font-family: 'DM Mono', monospace; font-size: 11px; padding: 7px 10px; outline: none; cursor: pointer; }
+    .export-btn { background: none; border: 1px solid #1e2d45; border-radius: 4px; color: #64748b; cursor: pointer; font-family: 'DM Mono', monospace; font-size: 11px; padding: 7px 14px; transition: all 0.12s; }
+    .export-btn:hover { border-color: #14b8a6; color: #14b8a6; }
     .filter-bar { display: flex; gap: 6px; flex-wrap: wrap; align-items: center; margin-bottom: 10px; }
     .filter-btn { background: none; border: 1px solid #1e2d45; border-radius: 4px; color: #94a3b8; cursor: pointer; font-family: 'DM Mono', monospace; font-size: 11px; padding: 5px 12px; transition: all 0.12s; white-space: nowrap; }
     .filter-btn:hover { border-color: #4a5568; color: #e2e8f0; }
     .filter-btn.active { border-color: #f97316; color: #f97316; background: rgba(249,115,22,0.08); }
-    .export-btn { background: none; border: 1px solid #1e2d45; border-radius: 4px; color: #64748b; cursor: pointer; font-family: 'DM Mono', monospace; font-size: 11px; padding: 6px 14px; transition: all 0.12s; }
-    .export-btn:hover { border-color: #14b8a6; color: #14b8a6; }
+
+    .copy-toast { position: fixed; bottom: 24px; right: 24px; background: #131929; border: 1px solid #14b8a6; border-radius: 6px; color: #14b8a6; font-size: 12px; padding: 10px 18px; display: none; z-index: 200; animation: fadeIn 0.2s ease; }
+    .copy-toast.visible { display: block; }
 
     .empty-state { color: #4a5568; font-size: 13px; text-align: center; padding: 40px 0; }
     .modal-overlay { position: fixed; inset: 0; background: rgba(0,0,0,0.7); display: none; align-items: center; justify-content: center; z-index: 100; }
@@ -122,6 +175,7 @@
       .form-row { grid-template-columns: 1fr; }
       header { padding: 14px 16px; }
       main { padding: 20px 16px; }
+      .search-input { width: 140px; }
     }
     @media (max-width: 400px) { .stat-grid { grid-template-columns: 1fr; } }
   </style>
@@ -180,20 +234,24 @@
         <canvas id="bar-chart"></canvas>
       </div>
 
-      <div style="display:grid;grid-template-columns:1fr 1fr;gap:20px;">
+      <div style="display:grid;grid-template-columns:1fr 1fr;gap:20px;margin-bottom:20px;">
         <div class="card" style="margin-bottom:0">
-          <div class="section-label">BREAKDOWN</div>
+          <div class="section-label">BREAKDOWN <span style="color:#4a5568;font-size:10px;letter-spacing:0">(click to expand)</span></div>
           <div class="breakdown" id="breakdown-list"></div>
         </div>
         <div class="card" style="margin-bottom:0">
-          <div class="section-label">FAILURES BY WEEK</div>
+          <div class="section-label">FAILURES BY WEEK <span style="color:#4a5568;font-size:10px;letter-spacing:0">(click to expand days)</span></div>
           <div id="week-list"><div class="empty-state" style="padding:20px 0">Not enough data yet</div></div>
         </div>
       </div>
-      <div style="margin-bottom:20px"></div>
+
+      <div class="card" id="top-errors-card" style="display:none">
+        <div class="section-label">🔥 TOP RECURRING ERRORS</div>
+        <div id="top-errors-list"></div>
+      </div>
 
       <div class="card" id="repeat-card" style="display:none">
-        <div class="section-label">🔁 REPEAT OFFENDERS</div>
+        <div class="section-label">🔁 REPEAT OFFENDER JOBS</div>
         <div id="repeat-list"></div>
       </div>
 
@@ -204,12 +262,13 @@
     </div>
   </div>
 
-  <!-- LOG FAILURE -->
+  <!-- LOG / EDIT -->
   <div id="view-log" class="view">
     <div class="form-wrap">
-      <div class="form-title">Log a Build Failure</div>
-      <div class="form-desc">Paste the Jenkins console output — the error will be auto-categorized.</div>
-      <div class="success-banner" id="success-banner">✓ Failure logged and categorized successfully</div>
+      <div class="form-title" id="form-title">Log a Build Failure</div>
+      <div class="form-desc" id="form-desc">Paste the Jenkins console output — the error will be auto-categorized.</div>
+      <div class="edit-banner" id="edit-banner">✏ Editing an existing entry — update any fields and save.</div>
+      <div class="success-banner" id="success-banner">✓ Saved successfully</div>
       <div class="form-fields">
         <div class="form-row">
           <div>
@@ -226,7 +285,7 @@
           <input class="input-field" id="f-url" placeholder="https://jenkins.yourcompany.com/job/..." />
         </div>
         <div>
-          <div class="field-label">CONSOLE LOG OUTPUT *</div>
+          <div class="field-label">CONSOLE LOG OUTPUT <span id="log-required">*</span></div>
           <textarea class="input-field" id="f-log" placeholder="Paste Jenkins console output here..." oninput="updatePreview()"></textarea>
         </div>
 
@@ -241,8 +300,7 @@
               <select class="input-field" id="f-override" style="width:auto;padding:6px 10px;font-size:12px;">
                 <option value="">— use auto-detected —</option>
                 <option value="Infrastructure / AWS">Infrastructure / AWS</option>
-                <option value="PR Out of Sync">PR Out of Sync</option>
-                <option value="Twilio / Telephony">Twilio / Telephony</option>
+                <option value="Stale Branch / Not Synced with Master">Stale Branch / Not Synced with Master</option>
                 <option value="Test Assertion Failure">Test Assertion Failure</option>
                 <option value="Code / Typo Error">Code / Typo Error</option>
                 <option value="Dependency / Build Error">Dependency / Build Error</option>
@@ -251,6 +309,19 @@
               </select>
             </div>
           </div>
+        </div>
+
+        <div id="edit-category-wrap" style="display:none">
+          <div class="field-label">CATEGORY</div>
+          <select class="input-field" id="f-category-edit">
+            <option value="Infrastructure / AWS">Infrastructure / AWS</option>
+            <option value="Stale Branch / Not Synced with Master">Stale Branch / Not Synced with Master</option>
+            <option value="Test Assertion Failure">Test Assertion Failure</option>
+            <option value="Code / Typo Error">Code / Typo Error</option>
+            <option value="Dependency / Build Error">Dependency / Build Error</option>
+            <option value="Environment / Config">Environment / Config</option>
+            <option value="Unknown">Unknown</option>
+          </select>
         </div>
 
         <div class="recurring-warning" id="recurring-warning"></div>
@@ -265,11 +336,14 @@
         </div>
 
         <div>
-          <div class="field-label">NOTES <span style="color:#4a5568;font-size:10px">(optional — context the log can't capture)</span></div>
+          <div class="field-label">NOTES <span style="color:#4a5568;font-size:10px">(optional)</span></div>
           <input class="input-field" id="f-notes" placeholder="e.g. Branch was out of sync with master..." />
         </div>
 
-        <button class="submit-btn" onclick="submitFailure()">LOG FAILURE →</button>
+        <div style="display:flex;gap:10px;flex-wrap:wrap;">
+          <button class="submit-btn" id="submit-btn" onclick="submitFailure()">LOG FAILURE →</button>
+          <button class="cancel-edit-btn" id="cancel-edit-btn" style="display:none" onclick="cancelEdit()">CANCEL</button>
+        </div>
       </div>
     </div>
   </div>
@@ -278,7 +352,16 @@
   <div id="view-history" class="view">
     <div class="history-header">
       <div class="history-title">All Failures <span style="color:#4a5568;font-size:16px" id="history-count">(0)</span></div>
-      <button class="export-btn" onclick="exportCSV()">↓ EXPORT CSV</button>
+      <div class="history-controls">
+        <input class="search-input" id="search-input" placeholder="Search job or error..." oninput="renderHistory()" />
+        <select class="sort-select" id="sort-select" onchange="renderHistory()">
+          <option value="newest">Newest first</option>
+          <option value="oldest">Oldest first</option>
+          <option value="category">By category</option>
+          <option value="status">By status</option>
+        </select>
+        <button class="export-btn" onclick="exportCSV()">↓ CSV</button>
+      </div>
     </div>
     <div class="filter-bar" id="filter-bar">
       <button class="filter-btn active" onclick="setFilter('cat','All')">All</button>
@@ -297,6 +380,8 @@
 
 </main>
 
+<div class="copy-toast" id="copy-toast">✓ Copied to clipboard</div>
+
 <div class="modal-overlay" id="delete-modal" onclick="closeModal()">
   <div class="modal-box" onclick="event.stopPropagation()">
     <div class="modal-title">Delete this entry?</div>
@@ -309,29 +394,34 @@
 </div>
 
 <script>
-const STORAGE_KEY = 'crm-qa-tracker-v3';
+const STORAGE_KEY = 'crm-qa-tracker-v5';
 
 const CATEGORIES = {
-  'Infrastructure / AWS':    { color: '#f97316', keywords: ['aws','lambda','dynamodb','cloudwatch','s3','ec2','ecs','timeout','connection refused','no space left','disk','memory','cpu','infrastructure','cloudflare','503','502'] },
-  'PR Out of Sync':          { color: '#ef4444', keywords: ['behind master','merge conflict','out of sync','rebase','your branch is behind','diverged','cannot merge','pull request','node version','engine requirement','requires node'] },
-  'Twilio / Telephony':      { color: '#8b5cf6', keywords: ['twilio','taskrouter','telephony','sip','voip','inbound call','outbound call','worker','reservation','webhook','twiml'] },
-  'Test Assertion Failure':  { color: '#3b82f6', keywords: ['assertionerror','assertion failed','expected','actual','test failed','spec failed','expect(','should equal','not equal','did not match'] },
-  'Code / Typo Error':       { color: '#ec4899', keywords: ['syntaxerror','typeerror','referenceerror','undefined is not','cannot read property','is not a function','unexpected token','parse error','typo','nameerror'] },
-  'Dependency / Build Error':{ color: '#14b8a6', keywords: ['npm','composer','yarn','package not found','module not found','dependency','cannot find module','pip','gradle','maven','build failed','compile error'] },
-  'Environment / Config':    { color: '#f59e0b', keywords: ['env','environment variable','config','.env','missing key','not configured','permission denied','unauthorized','credentials','secret'] },
-  'Unknown':                 { color: '#6b7280', keywords: [] }
+  'Infrastructure / AWS':                  { color: '#f97316', keywords: ['aws','lambda','dynamodb','cloudwatch','s3','ec2','ecs','timeout','connection refused','no space left','disk','memory','cpu','infrastructure','cloudflare','503','502'] },
+  'Stale Branch / Not Synced with Master': { color: '#ef4444', keywords: ['behind master','merge conflict','out of sync','rebase','your branch is behind','diverged','cannot merge','pull request','node version','engine requirement','requires node','stale'] },
+  'Test Assertion Failure':                { color: '#3b82f6', keywords: ['assertionerror','assertion failed','expected','actual','test failed','spec failed','expect(','should equal','not equal','did not match'] },
+  'Code / Typo Error':                     { color: '#ec4899', keywords: ['syntaxerror','typeerror','referenceerror','undefined is not','cannot read property','is not a function','unexpected token','parse error','typo','nameerror'] },
+  'Dependency / Build Error':              { color: '#14b8a6', keywords: ['npm','composer','yarn','package not found','module not found','dependency','cannot find module','pip','gradle','maven','build failed','compile error'] },
+  'Environment / Config':                  { color: '#f59e0b', keywords: ['env','environment variable','config','.env','missing key','not configured','permission denied','unauthorized','credentials','secret'] },
+  'Unknown':                               { color: '#6b7280', keywords: [] }
 };
 
-const INFRA_CATS = ['Infrastructure / AWS','Environment / Config','Twilio / Telephony'];
-const CODE_CATS  = ['Code / Typo Error','PR Out of Sync','Dependency / Build Error'];
+const CAT_LIST = Object.keys(CATEGORIES);
+const INFRA_CATS = ['Infrastructure / AWS','Environment / Config'];
+const CODE_CATS  = ['Code / Typo Error','Stale Branch / Not Synced with Master','Dependency / Build Error'];
 const STATUS_LABELS  = { open:'OPEN', progress:'IN PROGRESS', resolved:'RESOLVED' };
 const STATUS_CLASSES = { open:'status-open', progress:'status-progress', resolved:'status-resolved' };
+const DAY_NAMES = ['Sun','Mon','Tue','Wed','Thu','Fri','Sat'];
 
 let failures = [];
 let filterCat = 'All';
 let filterStatus = 'All';
 let pendingDeleteId = null;
+let editingId = null;
 let chartInstance = null;
+let expandedWeeks = new Set();
+let expandedCats = new Set();
+let toastTimer = null;
 
 function load() {
   try { failures = JSON.parse(localStorage.getItem(STORAGE_KEY) || '[]'); }
@@ -354,6 +444,14 @@ function extractSnippet(log) {
   const s = idx === -1 ? 0 : Math.max(0, idx - 1);
   const e = idx === -1 ? 3 : idx + 3;
   return lines.slice(s, e).join(' ').trim().slice(0, 220);
+}
+
+function extractErrorKey(snippet) {
+  if (!snippet) return null;
+  const lower = snippet.toLowerCase();
+  const patterns = [/error[:\s]+([^\n.]{10,60})/i, /failed[:\s]+([^\n.]{10,60})/i, /exception[:\s]+([^\n.]{10,60})/i, /fatal[:\s]+([^\n.]{10,60})/i];
+  for (const p of patterns) { const m = lower.match(p); if (m) return m[0].trim().slice(0, 80); }
+  return lower.slice(0, 80).trim();
 }
 
 function getWeekKey(dateStr) {
@@ -379,43 +477,34 @@ function showView(name) {
   if (name === 'history')   renderHistory();
 }
 
+// ---- DASHBOARD ----
 function renderDashboard() {
   const total = failures.length;
   document.getElementById('stat-total').textContent = total;
-
   const counts = catCounts();
   const top = counts[0];
   const topEl = document.getElementById('stat-top-cat');
-  if (top) {
-    topEl.textContent = top.name; topEl.style.color = top.color;
-    document.getElementById('stat-top-count').textContent = `${top.count} occurrence${top.count !== 1 ? 's' : ''}`;
-  } else {
-    topEl.textContent = '—'; topEl.style.color = '#4a5568';
-    document.getElementById('stat-top-count').textContent = '';
-  }
-
+  if (top) { topEl.textContent = top.name; topEl.style.color = top.color; document.getElementById('stat-top-count').textContent = `${top.count} occurrence${top.count !== 1 ? 's' : ''}`; }
+  else { topEl.textContent = '—'; topEl.style.color = '#4a5568'; document.getElementById('stat-top-count').textContent = ''; }
   document.getElementById('stat-infra').textContent = failures.filter(f => INFRA_CATS.includes(f.category)).length;
   document.getElementById('stat-code').textContent  = failures.filter(f => CODE_CATS.includes(f.category)).length;
-
   const openCount = failures.filter(f => !f.status || f.status === 'open').length;
   document.getElementById('stat-open').textContent = openCount;
   document.getElementById('stat-open-sub').textContent = `${failures.filter(f => f.status === 'resolved').length} resolved`;
-
   const hasData = total > 0;
   document.getElementById('empty-card').style.display     = hasData ? 'none' : 'block';
   document.getElementById('dashboard-data').style.display = hasData ? 'block' : 'none';
   if (!hasData) return;
-
   renderChart(counts);
   renderBreakdown(counts, total);
   renderWeeks();
+  renderTopErrors();
   renderRepeatOffenders();
   renderRecent();
 }
 
 function catCounts() {
-  return Object.keys(CATEGORIES)
-    .map(cat => ({ name: cat, count: failures.filter(f => f.category === cat).length, color: CATEGORIES[cat].color }))
+  return CAT_LIST.map(cat => ({ name: cat, count: failures.filter(f => f.category === cat).length, color: CATEGORIES[cat].color }))
     .filter(c => c.count > 0).sort((a, b) => b.count - a.count);
 }
 
@@ -425,33 +514,103 @@ function renderChart(counts) {
   chartInstance = new Chart(ctx, {
     type: 'bar',
     data: { labels: counts.map(c => c.name), datasets: [{ data: counts.map(c => c.count), backgroundColor: counts.map(c => c.color), borderRadius: 4, borderSkipped: false }] },
-    options: {
-      responsive: true,
-      plugins: { legend: { display: false }, tooltip: { backgroundColor: '#0e1420', borderColor: '#1e2d45', borderWidth: 1, titleColor: '#f8fafc', bodyColor: '#94a3b8', titleFont: { family: 'DM Mono' }, bodyFont: { family: 'DM Mono' } } },
-      scales: {
-        x: { ticks: { color: '#64748b', font: { family: 'DM Mono', size: 10 } }, grid: { display: false }, border: { display: false } },
-        y: { ticks: { color: '#64748b', font: { family: 'DM Mono', size: 11 }, stepSize: 1 }, grid: { color: '#1a2538' }, border: { display: false } }
-      }
-    }
+    options: { responsive: true, plugins: { legend: { display: false }, tooltip: { backgroundColor: '#0e1420', borderColor: '#1e2d45', borderWidth: 1, titleColor: '#f8fafc', bodyColor: '#94a3b8', titleFont: { family: 'DM Mono' }, bodyFont: { family: 'DM Mono' } } }, scales: { x: { ticks: { color: '#64748b', font: { family: 'DM Mono', size: 10 } }, grid: { display: false }, border: { display: false } }, y: { ticks: { color: '#64748b', font: { family: 'DM Mono', size: 11 }, stepSize: 1 }, grid: { color: '#1a2538' }, border: { display: false } } } }
   });
 }
 
 function renderBreakdown(counts, total) {
   document.getElementById('breakdown-list').innerHTML = counts.map(({ name, count, color }) => {
     const pct = Math.round((count / total) * 100);
-    return `<div><div class="breakdown-header"><span style="font-size:12px;color:#94a3b8">${name}</span><span style="font-size:12px;font-weight:500;color:${color}">${count} <span style="color:#4a5568">(${pct}%)</span></span></div><div class="breakdown-bar-bg"><div class="breakdown-bar-fill" style="width:${pct}%;background:${color}"></div></div></div>`;
+    const isOpen = expandedCats.has(name);
+    const catFailures = failures.filter(f => f.category === name).sort((a,b) => new Date(b.timestamp) - new Date(a.timestamp));
+    const drillRows = catFailures.map(f => {
+      const dateStr = new Date(f.timestamp).toLocaleDateString('en-US', { month: 'short', day: 'numeric', year: 'numeric' });
+      const status = f.status || 'open';
+      return `<div class="cat-drill-entry">
+        <div class="cat-drill-meta">
+          <span class="cat-drill-job">${escHtml(f.jobName)}</span>
+          <div style="display:flex;align-items:center;gap:6px;">
+            <span class="status-badge ${STATUS_CLASSES[status]}" style="font-size:9px">${STATUS_LABELS[status]}</span>
+            <span class="cat-drill-date">${dateStr}</span>
+          </div>
+        </div>
+        <div class="cat-drill-snippet">${escHtml(f.snippet || '')}</div>
+        ${f.notes ? `<div style="font-size:11px;color:#64748b;font-style:italic;margin-top:2px;">💬 ${escHtml(f.notes)}</div>` : ''}
+        ${f.buildUrl ? `<a href="${escHtml(f.buildUrl)}" target="_blank" rel="noreferrer" style="font-size:11px;color:#3b82f6;text-decoration:none;">view build →</a>` : ''}
+      </div>`;
+    }).join('');
+    return `<div class="breakdown-row-wrap" onclick="toggleCat(${JSON.stringify(name)})">
+      <div class="breakdown-header">
+        <span style="font-size:12px;color:#94a3b8"><span class="breakdown-chevron${isOpen?' open':''}">▶</span>${name}</span>
+        <span style="font-size:12px;font-weight:500;color:${color}">${count} <span style="color:#4a5568">(${pct}%)</span></span>
+      </div>
+      <div class="breakdown-bar-bg"><div class="breakdown-bar-fill" style="width:${pct}%;background:${color}"></div></div>
+    </div>
+    <div class="cat-drill${isOpen?' open':''}">${drillRows}</div>`;
   }).join('');
 }
 
 function renderWeeks() {
   const weekMap = {};
-  failures.forEach(f => { const wk = getWeekKey(f.timestamp); weekMap[wk] = (weekMap[wk] || 0) + 1; });
-  const weeks = Object.entries(weekMap).sort((a, b) => b[0].localeCompare(a[0])).slice(0, 6);
+  failures.forEach(f => {
+    const wk = getWeekKey(f.timestamp);
+    if (!weekMap[wk]) weekMap[wk] = { total: 0, days: {} };
+    weekMap[wk].total++;
+    const dayIdx = new Date(f.timestamp).getDay();
+    const dayName = DAY_NAMES[dayIdx];
+    weekMap[wk].days[dayName] = (weekMap[wk].days[dayName] || 0) + 1;
+  });
+
+  const weeks = Object.entries(weekMap).sort((a, b) => b[0].localeCompare(a[0])).slice(0, 8);
   if (!weeks.length) return;
-  const max = Math.max(...weeks.map(w => w[1]));
-  document.getElementById('week-list').innerHTML = weeks.map(([key, count]) =>
-    `<div class="week-row"><span class="week-label">${formatWeek(key)}</span><div class="week-bar-wrap"><div class="week-bar" style="width:${Math.round((count/max)*100)}%"></div></div><span class="week-count">${count}</span></div>`
-  ).join('');
+  const max = Math.max(...weeks.map(([,v]) => v.total));
+
+  document.getElementById('week-list').innerHTML = weeks.map(([key, data]) => {
+    const isOpen = expandedWeeks.has(key);
+    const dayMax = Math.max(...Object.values(data.days));
+    const dayRows = DAY_NAMES.filter(d => data.days[d]).map(d =>
+      `<div class="day-row"><span class="day-label">${d}</span><div class="day-bar-wrap"><div class="day-bar" style="width:${Math.round((data.days[d]/dayMax)*100)}%"></div></div><span class="day-count">${data.days[d]}</span></div>`
+    ).join('');
+    return `
+      <div class="week-row" onclick="toggleWeek('${key}')">
+        <span class="week-chevron${isOpen?' open':''}">▶</span>
+        <span class="week-label">${formatWeek(key)}</span>
+        <div class="week-bar-wrap"><div class="week-bar" style="width:${Math.round((data.total/max)*100)}%"></div></div>
+        <span class="week-count">${data.total}</span>
+      </div>
+      <div class="day-breakdown${isOpen?' open':''}" id="week-${key}">${dayRows}</div>`;
+  }).join('');
+}
+
+function toggleWeek(key) {
+  if (expandedWeeks.has(key)) expandedWeeks.delete(key);
+  else expandedWeeks.add(key);
+  renderWeeks();
+}
+
+function toggleCat(name) {
+  if (expandedCats.has(name)) expandedCats.delete(name);
+  else expandedCats.add(name);
+  const total = failures.length;
+  renderBreakdown(catCounts(), total);
+}
+
+function renderTopErrors() {
+  const errorMap = {};
+  failures.forEach(f => {
+    const key = extractErrorKey(f.snippet);
+    if (!key) return;
+    if (!errorMap[key]) errorMap[key] = { count: 0, category: f.category, snippet: f.snippet };
+    errorMap[key].count++;
+  });
+  const topErrors = Object.entries(errorMap).filter(([,v]) => v.count >= 2).sort((a,b) => b[1].count - a[1].count).slice(0, 5);
+  const card = document.getElementById('top-errors-card');
+  if (!topErrors.length) { card.style.display = 'none'; return; }
+  card.style.display = 'block';
+  document.getElementById('top-errors-list').innerHTML = topErrors.map(([key, { count, category, snippet }]) => {
+    const color = CATEGORIES[category]?.color || '#6b7280';
+    return `<div class="top-error-item"><div class="top-error-header"><div style="display:flex;align-items:center;gap:8px;flex-wrap:wrap"><span class="tag" style="background:${color}20;color:${color}">${category}</span><span class="error-count-badge">${count}x</span></div></div><div class="top-error-msg">${escHtml(snippet ? snippet.slice(0,160) : key)}</div></div>`;
+  }).join('');
 }
 
 function renderRepeatOffenders() {
@@ -472,14 +631,14 @@ function renderRecent() {
   document.getElementById('recent-list').innerHTML = failures.slice(0, 5).map(f => entryHTML(f, false)).join('');
 }
 
+// ---- FORM ----
 function updatePreview() {
   const log = document.getElementById('f-log').value.trim();
   const box = document.getElementById('preview-box');
   const cat = document.getElementById('preview-cat');
   if (!log) { box.classList.remove('visible'); return; }
   const detected = categorize(log);
-  cat.textContent = detected;
-  cat.style.color = CATEGORIES[detected].color;
+  cat.textContent = detected; cat.style.color = CATEGORIES[detected].color;
   box.style.borderColor = CATEGORIES[detected].color + '40';
   box.classList.add('visible');
   checkRecurring();
@@ -489,57 +648,149 @@ function checkRecurring() {
   const job = document.getElementById('f-job').value.trim().toLowerCase();
   const warn = document.getElementById('recurring-warning');
   if (!job) { warn.classList.remove('visible'); return; }
-  const matches = failures.filter(f => f.jobName.toLowerCase() === job);
+  const matches = failures.filter(f => f.jobName.toLowerCase() === job && f.id !== editingId);
   if (matches.length >= 2) {
     const last = new Date(matches[0].timestamp).toLocaleDateString('en-US', { month: 'short', day: 'numeric', year: 'numeric' });
     warn.innerHTML = `⚠ This job has failed <strong>${matches.length} time${matches.length !== 1 ? 's' : ''}</strong> before. Last failure: ${last}`;
     warn.classList.add('visible');
-  } else {
-    warn.classList.remove('visible');
-  }
+  } else { warn.classList.remove('visible'); }
 }
 
 function submitFailure() {
   const jobName = document.getElementById('f-job').value.trim();
   const log     = document.getElementById('f-log').value.trim();
-  if (!jobName || !log) return;
+  const isEdit  = !!editingId;
+  if (!jobName) return;
+  if (!isEdit && !log) return;
 
   const failureDate = document.getElementById('f-date').value;
-  const autoCat  = categorize(log);
-  const override = document.getElementById('f-override').value;
+  const override    = document.getElementById('f-override').value;
+  const editCat     = document.getElementById('f-category-edit').value;
+  let category, snippet, overridden;
+  if (log) {
+    category = override || categorize(log); snippet = extractSnippet(log); overridden = !!override;
+  } else {
+    category = editCat; snippet = failures.find(f => f.id === editingId)?.snippet || ''; overridden = true;
+  }
 
-  failures.unshift({
-    id: Date.now().toString(),
-    timestamp: failureDate ? new Date(failureDate + 'T12:00:00').toISOString() : new Date().toISOString(),
-    jobName,
-    buildUrl:   document.getElementById('f-url').value.trim(),
-    category:   override || autoCat,
-    overridden: !!override,
-    status:     document.getElementById('f-status').value,
-    notes:      document.getElementById('f-notes').value.trim(),
-    snippet:    extractSnippet(log),
-  });
-  save();
+  if (isEdit) {
+    const idx = failures.findIndex(f => f.id === editingId);
+    if (idx !== -1) failures[idx] = { ...failures[idx], jobName, buildUrl: document.getElementById('f-url').value.trim(), timestamp: failureDate ? new Date(failureDate + 'T12:00:00').toISOString() : failures[idx].timestamp, category, overridden, status: document.getElementById('f-status').value, notes: document.getElementById('f-notes').value.trim(), snippet };
+  } else {
+    failures.unshift({ id: Date.now().toString(), timestamp: failureDate ? new Date(failureDate + 'T12:00:00').toISOString() : new Date().toISOString(), jobName, category, overridden, snippet, buildUrl: document.getElementById('f-url').value.trim(), status: document.getElementById('f-status').value, notes: document.getElementById('f-notes').value.trim() });
+  }
+  save(); resetForm();
+  const banner = document.getElementById('success-banner');
+  banner.classList.add('visible');
+  setTimeout(() => { banner.classList.remove('visible'); showView('dashboard'); }, 1600);
+}
 
+function resetForm() {
+  editingId = null;
   ['f-job','f-date','f-url','f-log','f-notes'].forEach(id => document.getElementById(id).value = '');
   document.getElementById('f-override').value = '';
   document.getElementById('f-status').value = 'open';
   document.getElementById('preview-box').classList.remove('visible');
   document.getElementById('recurring-warning').classList.remove('visible');
-
-  const banner = document.getElementById('success-banner');
-  banner.classList.add('visible');
-  setTimeout(() => { banner.classList.remove('visible'); showView('dashboard'); }, 1800);
+  document.getElementById('edit-banner').classList.remove('visible');
+  document.getElementById('edit-category-wrap').style.display = 'none';
+  document.getElementById('cancel-edit-btn').style.display = 'none';
+  document.getElementById('submit-btn').textContent = 'LOG FAILURE →';
+  document.getElementById('form-title').textContent = 'Log a Build Failure';
+  document.getElementById('form-desc').textContent = 'Paste the Jenkins console output — the error will be auto-categorized.';
+  document.getElementById('log-required').textContent = '*';
 }
 
+function cancelEdit() { resetForm(); showView('history'); }
+
+function startEdit(id) {
+  const f = failures.find(f => f.id === id);
+  if (!f) return;
+  editingId = id;
+  document.getElementById('f-job').value   = f.jobName;
+  document.getElementById('f-url').value   = f.buildUrl || '';
+  document.getElementById('f-notes').value = f.notes || '';
+  document.getElementById('f-status').value = f.status || 'open';
+  document.getElementById('f-log').value   = '';
+  document.getElementById('f-date').value  = new Date(f.timestamp).toISOString().slice(0, 10);
+  document.getElementById('f-category-edit').value = f.category;
+  document.getElementById('edit-category-wrap').style.display = 'block';
+  document.getElementById('preview-box').classList.remove('visible');
+  document.getElementById('recurring-warning').classList.remove('visible');
+  document.getElementById('form-title').textContent = 'Edit Failure Entry';
+  document.getElementById('form-desc').textContent  = 'Update any fields. Leave console log blank to keep existing snippet.';
+  document.getElementById('log-required').textContent = '';
+  document.getElementById('edit-banner').classList.add('visible');
+  document.getElementById('submit-btn').textContent = 'SAVE CHANGES →';
+  document.getElementById('cancel-edit-btn').style.display = 'inline-block';
+  showView('log');
+  window.scrollTo({ top: 0, behavior: 'smooth' });
+}
+
+// ---- INLINE EDITING ----
+function inlineEditCategory(id) {
+  const f = failures.find(f => f.id === id);
+  if (!f) return;
+  const el = document.getElementById('cat-tag-' + id);
+  if (!el) return;
+  const color = CATEGORIES[f.category]?.color || '#6b7280';
+  const opts = CAT_LIST.map(c => `<option value="${c}" ${c === f.category ? 'selected' : ''}>${c}</option>`).join('');
+  el.outerHTML = `<select class="inline-cat-select" id="cat-sel-${id}" onchange="saveInlineCat('${id}',this.value)" onblur="saveInlineCat('${id}',this.value)">${opts}</select>`;
+  setTimeout(() => document.getElementById('cat-sel-' + id)?.focus(), 10);
+}
+
+function saveInlineCat(id, val) {
+  const f = failures.find(f => f.id === id);
+  if (f && val) { f.category = val; f.overridden = true; save(); renderHistory(); renderDashboard(); }
+}
+
+function inlineEditNotes(id) {
+  const f = failures.find(f => f.id === id);
+  if (!f) return;
+  const el = document.getElementById('notes-disp-' + id);
+  if (!el) return;
+  el.outerHTML = `<input class="entry-notes-input" id="notes-inp-${id}" value="${escAttr(f.notes || '')}" placeholder="Add a note..." onblur="saveInlineNotes('${id}',this.value)" onkeydown="if(event.key==='Enter')saveInlineNotes('${id}',this.value)" autofocus />`;
+  setTimeout(() => document.getElementById('notes-inp-' + id)?.focus(), 10);
+}
+
+function saveInlineNotes(id, val) {
+  const f = failures.find(f => f.id === id);
+  if (f) { f.notes = val.trim(); save(); renderHistory(); }
+}
+
+// ---- COPY TO CLIPBOARD ----
+function copyEntry(id) {
+  const f = failures.find(f => f.id === id);
+  if (!f) return;
+  const date = new Date(f.timestamp).toLocaleDateString('en-US', { month: 'short', day: 'numeric', year: 'numeric' });
+  const text = [
+    `Job: ${f.jobName}`,
+    `Date: ${date}`,
+    `Category: ${f.category}`,
+    `Status: ${(STATUS_LABELS[f.status||'open'])}`,
+    f.notes ? `Notes: ${f.notes}` : null,
+    f.buildUrl ? `Build URL: ${f.buildUrl}` : null,
+    `Error: ${f.snippet}`,
+  ].filter(Boolean).join('\n');
+  navigator.clipboard.writeText(text).then(() => showToast());
+}
+
+function showToast() {
+  const t = document.getElementById('copy-toast');
+  t.classList.add('visible');
+  clearTimeout(toastTimer);
+  toastTimer = setTimeout(() => t.classList.remove('visible'), 2000);
+}
+
+// ---- HISTORY ----
 function setFilter(type, val) {
   if (type === 'cat') {
     filterCat = val;
     document.querySelectorAll('#filter-bar .filter-btn').forEach(b => b.classList.toggle('active', b.textContent.trim() === val));
   } else {
     filterStatus = val;
-    const labelMap = { All:'All', open:'Open', progress:'In Progress', resolved:'Resolved' };
-    document.querySelectorAll('#status-bar .filter-btn').forEach(b => b.classList.toggle('active', b.textContent.trim() === labelMap[val]));
+    const lm = { All:'All', open:'Open', progress:'In Progress', resolved:'Resolved' };
+    document.querySelectorAll('#status-bar .filter-btn').forEach(b => b.classList.toggle('active', b.textContent.trim() === lm[val]));
   }
   renderHistory();
 }
@@ -548,46 +799,63 @@ function renderHistory() {
   const counts = catCounts();
   document.getElementById('filter-bar').innerHTML =
     `<button class="filter-btn${filterCat==='All'?' active':''}" onclick="setFilter('cat','All')">All</button>` +
-    counts.map(({ name, color }) =>
-      `<button class="filter-btn${filterCat===name?' active':''}" onclick="setFilter('cat',${JSON.stringify(name)})" style="${filterCat===name?`border-color:${color};color:${color};background:${color}12`:''}">${name}</button>`
-    ).join('');
+    counts.map(({ name, color }) => `<button class="filter-btn${filterCat===name?' active':''}" onclick="setFilter('cat',${JSON.stringify(name)})" style="${filterCat===name?`border-color:${color};color:${color};background:${color}12`:''}">${name}</button>`).join('');
+
+  const search = (document.getElementById('search-input')?.value || '').toLowerCase();
+  const sort   = document.getElementById('sort-select')?.value || 'newest';
 
   let filtered = [...failures];
   if (filterCat !== 'All') filtered = filtered.filter(f => f.category === filterCat);
   if (filterStatus !== 'All') filtered = filtered.filter(f => (f.status || 'open') === filterStatus);
+  if (search) filtered = filtered.filter(f => f.jobName.toLowerCase().includes(search) || f.snippet?.toLowerCase().includes(search) || f.notes?.toLowerCase().includes(search) || f.category.toLowerCase().includes(search));
+
+  if (sort === 'oldest') filtered.sort((a,b) => new Date(a.timestamp) - new Date(b.timestamp));
+  else if (sort === 'newest') filtered.sort((a,b) => new Date(b.timestamp) - new Date(a.timestamp));
+  else if (sort === 'category') filtered.sort((a,b) => a.category.localeCompare(b.category));
+  else if (sort === 'status') filtered.sort((a,b) => (a.status||'open').localeCompare(b.status||'open'));
 
   document.getElementById('history-count').textContent = `(${filtered.length})`;
   const el = document.getElementById('history-list');
   el.innerHTML = filtered.length ? filtered.map(f => entryHTML(f, true)).join('') : '<div class="empty-state">No failures match this filter.</div>';
 }
 
-function entryHTML(f, showDel) {
+function entryHTML(f, showControls) {
   const color   = CATEGORIES[f.category]?.color || '#6b7280';
   const date    = new Date(f.timestamp);
   const dateStr = date.toLocaleDateString('en-US', { month: 'short', day: 'numeric', year: 'numeric' });
   const status  = f.status || 'open';
+  const notesHtml = showControls
+    ? `<span class="entry-notes-display${f.notes ? '' : ' empty'}" id="notes-disp-${f.id}" onclick="inlineEditNotes('${f.id}')" title="Click to edit note">💬 ${f.notes ? escHtml(f.notes) : 'Add a note...'}</span>`
+    : (f.notes ? `<span class="entry-notes-display">💬 ${escHtml(f.notes)}</span>` : '');
+  const catTag = showControls
+    ? `<span class="tag tag-clickable" id="cat-tag-${f.id}" style="background:${color}20;color:${color}" onclick="inlineEditCategory('${f.id}')" title="Click to change category">${f.category}</span>`
+    : `<span class="tag" style="background:${color}20;color:${color}">${f.category}</span>`;
   return `<div class="row-entry">
     <div class="entry-top">
       <div class="entry-main">
         <div class="entry-meta">
           <span class="entry-job">${escHtml(f.jobName)}</span>
-          <span class="tag" style="background:${color}20;color:${color}">${f.category}</span>
+          ${catTag}
           <span class="status-badge ${STATUS_CLASSES[status]}">${STATUS_LABELS[status]}</span>
           ${f.overridden ? `<span style="font-size:10px;color:#4a5568">manually set</span>` : ''}
         </div>
         <div class="entry-snippet">${escHtml(f.snippet)}</div>
-        ${f.notes ? `<div class="entry-notes">💬 ${escHtml(f.notes)}</div>` : ''}
+        ${notesHtml}
         ${f.buildUrl ? `<a class="entry-link" href="${escHtml(f.buildUrl)}" target="_blank" rel="noreferrer">view build →</a>` : ''}
       </div>
       <div class="entry-right">
         <span class="entry-time">${dateStr}</span>
-        ${showDel ? `
+        ${showControls ? `
           <select onchange="updateStatus('${f.id}',this.value)" style="background:#0e1420;border:1px solid #1e2d45;border-radius:4px;color:#94a3b8;font-family:'DM Mono',monospace;font-size:11px;padding:4px 8px;cursor:pointer;">
             <option value="open"     ${status==='open'?'selected':''}>Open</option>
             <option value="progress" ${status==='progress'?'selected':''}>In Progress</option>
             <option value="resolved" ${status==='resolved'?'selected':''}>Resolved</option>
           </select>
-          <button class="del-btn" onclick="openDeleteModal('${f.id}')" title="Delete">✕</button>` : ''}
+          <div class="btn-row">
+            <button class="icon-btn copy" onclick="copyEntry('${f.id}')" title="Copy to clipboard">⎘</button>
+            <button class="icon-btn edit" onclick="startEdit('${f.id}')" title="Edit">✏</button>
+            <button class="icon-btn del"  onclick="openDeleteModal('${f.id}')" title="Delete">✕</button>
+          </div>` : ''}
       </div>
     </div>
   </div>`;
@@ -598,17 +866,10 @@ function updateStatus(id, status) {
   if (f) { f.status = status; save(); renderHistory(); renderDashboard(); }
 }
 
+// ---- EXPORT ----
 function exportCSV() {
   const headers = ['Date','Job Name','Category','Status','Manually Set','Notes','Build URL','Snippet'];
-  const rows = failures.map(f => [
-    new Date(f.timestamp).toLocaleDateString(),
-    f.jobName, f.category,
-    f.status || 'open',
-    f.overridden ? 'yes' : 'no',
-    f.notes || '',
-    f.buildUrl || '',
-    f.snippet || ''
-  ].map(v => `"${String(v).replace(/"/g,'""')}"`).join(','));
+  const rows = failures.map(f => [new Date(f.timestamp).toLocaleDateString(), f.jobName, f.category, f.status||'open', f.overridden?'yes':'no', f.notes||'', f.buildUrl||'', f.snippet||''].map(v => `"${String(v).replace(/"/g,'""')}"`).join(','));
   const csv = [headers.join(','), ...rows].join('\n');
   const a = document.createElement('a');
   a.href = URL.createObjectURL(new Blob([csv], { type: 'text/csv' }));
@@ -616,6 +877,7 @@ function exportCSV() {
   a.click();
 }
 
+// ---- DELETE ----
 function openDeleteModal(id) { pendingDeleteId = id; document.getElementById('delete-modal').classList.add('visible'); }
 function closeModal() { pendingDeleteId = null; document.getElementById('delete-modal').classList.remove('visible'); }
 function confirmDelete() {
@@ -624,9 +886,8 @@ function confirmDelete() {
   save(); closeModal(); renderHistory(); renderDashboard();
 }
 
-function escHtml(str) {
-  return String(str||'').replace(/&/g,'&amp;').replace(/</g,'&lt;').replace(/>/g,'&gt;').replace(/"/g,'&quot;');
-}
+function escHtml(str) { return String(str||'').replace(/&/g,'&amp;').replace(/</g,'&lt;').replace(/>/g,'&gt;').replace(/"/g,'&quot;'); }
+function escAttr(str) { return String(str||'').replace(/"/g,'&quot;').replace(/'/g,'&#39;'); }
 
 load();
 renderDashboard();
