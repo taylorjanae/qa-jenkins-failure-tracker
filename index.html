@@ -273,7 +273,13 @@
         <div class="form-row">
           <div>
             <div class="field-label">JOB NAME *</div>
-            <input class="input-field" id="f-job" placeholder="e.g. CRM-QA-Build" oninput="checkRecurring()" />
+            <select class="input-field" id="f-job-select" onchange="handleJobSelect()" style="margin-bottom:6px;">
+              <option value="">— select a job —</option>
+              <option value="QA Build">QA Build</option>
+              <option value="Update QA Build V2 Specific Service">Update QA Build V2 Specific Service</option>
+              <option value="other">Other...</option>
+            </select>
+            <input class="input-field" id="f-job" placeholder="Enter job name..." oninput="checkRecurring()" style="display:none;" />
           </div>
           <div>
             <div class="field-label">FAILURE DATE <span style="color:#4a5568;font-size:10px">(blank = today)</span></div>
@@ -632,6 +638,26 @@ function renderRecent() {
 }
 
 // ---- FORM ----
+function handleJobSelect() {
+  const sel = document.getElementById('f-job-select').value;
+  const input = document.getElementById('f-job');
+  if (sel === 'other' || sel === '') {
+    input.style.display = 'block';
+    input.value = '';
+    input.focus();
+  } else {
+    input.style.display = 'none';
+    input.value = sel;
+  }
+  checkRecurring();
+}
+
+function getJobName() {
+  const sel = document.getElementById('f-job-select').value;
+  if (sel === 'other' || sel === '') return document.getElementById('f-job').value.trim();
+  return sel;
+}
+
 function updatePreview() {
   const log = document.getElementById('f-log').value.trim();
   const box = document.getElementById('preview-box');
@@ -645,7 +671,7 @@ function updatePreview() {
 }
 
 function checkRecurring() {
-  const job = document.getElementById('f-job').value.trim().toLowerCase();
+  const job = getJobName().toLowerCase();
   const warn = document.getElementById('recurring-warning');
   if (!job) { warn.classList.remove('visible'); return; }
   const matches = failures.filter(f => f.jobName.toLowerCase() === job && f.id !== editingId);
@@ -657,7 +683,7 @@ function checkRecurring() {
 }
 
 function submitFailure() {
-  const jobName = document.getElementById('f-job').value.trim();
+  const jobName = getJobName();
   const log     = document.getElementById('f-log').value.trim();
   const isEdit  = !!editingId;
   if (!jobName) return;
@@ -688,6 +714,8 @@ function submitFailure() {
 function resetForm() {
   editingId = null;
   ['f-job','f-date','f-url','f-log','f-notes'].forEach(id => document.getElementById(id).value = '');
+  document.getElementById('f-job-select').value = '';
+  document.getElementById('f-job').style.display = 'none';
   document.getElementById('f-override').value = '';
   document.getElementById('f-status').value = 'open';
   document.getElementById('preview-box').classList.remove('visible');
@@ -707,7 +735,18 @@ function startEdit(id) {
   const f = failures.find(f => f.id === id);
   if (!f) return;
   editingId = id;
-  document.getElementById('f-job').value   = f.jobName;
+  const knownJobs = ['QA Build', 'Update QA Build V2 Specific Service'];
+  const jobSel = document.getElementById('f-job-select');
+  const jobInput = document.getElementById('f-job');
+  if (knownJobs.includes(f.jobName)) {
+    jobSel.value = f.jobName;
+    jobInput.style.display = 'none';
+    jobInput.value = f.jobName;
+  } else {
+    jobSel.value = 'other';
+    jobInput.style.display = 'block';
+    jobInput.value = f.jobName;
+  }
   document.getElementById('f-url').value   = f.buildUrl || '';
   document.getElementById('f-notes').value = f.notes || '';
   document.getElementById('f-status').value = f.status || 'open';
